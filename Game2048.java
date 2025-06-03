@@ -32,6 +32,7 @@ public class Game2048 {
 
 //=== *** Your "global" constants & variables can be added starting here *** ===//
 
+   public static int grid[][];
 
 
 /**
