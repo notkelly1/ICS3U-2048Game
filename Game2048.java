@@ -27,47 +27,139 @@ public class Game2048 {
    public static final int UP 	= 3;
 
    private Game2048GUI gui;
+ 
+ // ======================================================================
+ 
+ //=== *** Your "global" constants & variables can be added starting here *** ===//
+ 
+    // Global Constant Declaration
+    public static final int EMPTY_BOX = -1;
+    //public static final String SAVE_FILE = "ExampleSave.txt";    
+    //public static final String ICON_FILE_FOLDER = "C:/Users/Kelly/Desktop/ICS3U-2048Game";
 
-// ======================================================================
-
-//=== *** Your "global" constants & variables can be added starting here *** ===//
-
-   // Global Constant Declaration
-   public static final String SAVE_FILE = "ExampleSave.txt";
-   
-   // Global Variable Declaration
-   public static int grid[][];
-
-
-/**
- * Constructs Game2048 object.
- *
- * @param gameGUI	The GUI object that will be used by this class.
- */   
-   public Game2048(Game2048GUI gameGUI) {
-      gui = gameGUI;
+    // Global Variable Declaration
+    private static int grid[][] = new int [NUM_ROW][NUM_COLUMN];
+ 
+ 
+ /**
+  * Constructs Game2048 object.
+  *
+  * @param gameGUI	The GUI object that will be used by this class.
+  */   
+    public Game2048(Game2048GUI gameGUI) {
+       gui = gameGUI;
+    }
+ 
+ // Method Declaration (all methods are public non static)
+    
+    public void initializeGrid(){
+      
+         // for loop to initialize grid with empty box
+         for(int i = 0; i < NUM_ROW; i++){
+            for(int j=0; j < NUM_COLUMN; j++){
+               grid[i][j]=-1;
+            }
+         }
+    }
+    
+    public void testGrid(){
+      // for loop to initialize grid with empty box
+         for(int i = 0; i < NUM_ROW; i++){
+            for(int j=0; j < NUM_COLUMN; j ++){
+               grid[i][j]=1024;
+            }
+         }
+    }
+    
+    public void setRandomSquares() {
+       // Variable Declaration
+       int randRow;
+       int randCol;
+       int numberToAdd;
+       
+       randRow = (int) (Math.random() * 4); // random decimal between 0 and 1, cast to int
+       randCol = (int) (Math.random() * 4);
+       if (Math.random() > 0.9) {
+           numberToAdd = 4;
+       }
+       else {
+           numberToAdd = 2;
+       }
+       grid[randRow][randCol] = numberToAdd;
    }
-
-// Method Declaration
-   public static void newGame(){
-   }// end of newGame method
    
-   public static void move(int direction){
-   }// end of move method
+   /* 
+   public int[] shiftRowleft(int[] row) {
+       int[] result = new int[4];
+       
+       // everything "4"here means the row length. its always 4 long
+       for (int i = 0; i < 4; i++) {
+           result[i] = row;
+       }
+       
+       // stage1: left-to-right shift all elementsto the left
+       // i.e. 0,2,0,2 -> 2,2,0,0
+       for (int i = 0; i < 4; i++) {
+           if (result[i] != EMPTY_BOX) {
+               for (int j = i; j > -1; j--) {
+                   if (result[j - 1] == 0) {
+                       int temp = result[j];
+                       result[j] = result[j - 1];
+                       result[j - 1] = temp;
+                   }
+               }
+           }
+       }
+       
+       // stage 2: comvine
+       
+       // stage 3:redo left-to-right-shift
+   }*/
+    
+    public void newGame(){
+      // Variable Declaration
+      
+      // initialize grid
+      initializeGrid();
+      
+      // Set the Random Squares
+      setRandomSquares();
+      setRandomSquares();
+      //testGrid();
+      System.out.println("balls3");
+      // connect grid to frontend using api
+      for (int[] i: grid) {
+          for (int j: i) {
+              System.out.print(j);
+              System.out.print(" ");
+          }
+          System.out.print("\n");
+      }
+      gui.displayGrid(grid);
+      System.out.println("balls4");
+      
+    }//end of newGame method
+    
+    public void move(int direction){
+    }//end of move method
    
-   public static boolean saveToFile(String fileName){
-      // Variable declaration
+   public boolean saveToFile(String fileName){
+      //Variable declaration
       boolean save = false;
       
-      // return
+      //return
       return save;
-   }// end of save method
+   }//end of save method
    
-   public static boolean loadFromFile(String fileName){
-      // Variable declaration
+   public boolean loadFromFile(String fileName){
+   //   Variable declaration
       boolean load = false;
       
-      // return
+      //return
       return load;
    }// end of load method
-}// end of class 
+   
+   public void addRandomTile() {
+      
+   }
+}//end of class

@@ -525,15 +525,22 @@ public class Game2048GUI {
  * Main method of the program. It starts by initializing Game2048Gui, Game2048 and Game2048Listener object.
  */     
    public static void main(String[] args) {
+   System.out.println("1");
       Game2048GUI gui = new Game2048GUI();
+      System.out.println("2");
       Game2048 game = new Game2048(gui);
+      System.out.println("3");
       Game2048Listener listener = new Game2048Listener (game, gui);
+      System.out.println("4");
       Game2048ButtonListener butListener = new Game2048ButtonListener(game, gui); 
+      System.out.println("5");
       
       // request focus on the game grid to allow keyboard input
       gui.gameWindowRequestFocus(); 
+      System.out.println("6");
       
       // start the game logic
       game.newGame();
+      System.out.println("7");
    }
 }
