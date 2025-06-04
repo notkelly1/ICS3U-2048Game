@@ -32,6 +32,10 @@ public class Game2048 {
 
 //=== *** Your "global" constants & variables can be added starting here *** ===//
 
+   // Global Constant Declaration
+   public static final String SAVE_FILE = "ExampleSave.txt";
+   
+   // Global Variable Declaration
    public static int grid[][];
 
 
@@ -44,4 +48,26 @@ public class Game2048 {
       gui = gameGUI;
    }
 
-}
+// Method Declaration
+   public static void newGame(){
+   }// end of newGame method
+   
+   public static void move(int direction){
+   }// end of move method
+   
+   public static boolean saveToFile(String fileName){
+      // Variable declaration
+      boolean save = false;
+      
+      // return
+      return save;
+   }// end of save method
+   
+   public static boolean loadFromFile(String fileName){
+      // Variable declaration
+      boolean load = false;
+      
+      // return
+      return load;
+   }// end of load method
+}// end of class 
