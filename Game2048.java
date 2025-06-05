@@ -123,8 +123,10 @@ public class Game2048 {
          if (result[i] == result[i - 1] && result[i] != EMPTY_BOX) {
             // set element to 0, set previous element to double
             // i.e. ..,2,2,... -> ...,4,0,...
-            result[i] = 0;
-            result[i - 1] *= 2;
+            // result[i] = EMPTY_BOX;
+            // result[i - 1] *= 2; 
+            result[i] *= 2;
+            result[i - 1] = EMPTY_BOX;
          }
       }
 
@@ -169,8 +171,8 @@ public class Game2048 {
       // stage 2: combine elements (e.g. 0,0,2,2 -> 0,0,0,4)
       for (int i = 0; i < 3; i++) {
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
-            result[i] = EMPTY_BOX;
-            result[i + 1] *= 2;
+            result[i + 1] = EMPTY_BOX;
+            result[i] *= 2;
          }
       }
 
