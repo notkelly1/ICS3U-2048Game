@@ -173,12 +173,12 @@ public class Game2048 {
       int[] result = new int[4];
 
       // copy input
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < ROW_LENGTH; i++) {
          result[i] = row[i];
       }
 
       // stage 1: right-to-left shift all elements to the right
-      for (int i = 3; i >= 0; i--) {
+      for (int i = ROW_4; i >= ROW_1; i--) {
          if (result[i] != EMPTY_BOX) {
             for (int j = i; j < 3; j++) {
                if (result[j + 1] == EMPTY_BOX) {
@@ -195,9 +195,9 @@ public class Game2048 {
          // case: 3 consecutive elements are the same 
           if( (i + 2 < ROW_LENGTH) && result[i] == result[i + 1] && result[i] == result[i + 2] && result[i] != EMPTY_BOX){
             // since this is already in shift row right,               
+               System.out.println("RIGHTRIGHTRIGHTRIGHT i should be MERGING this row to the RIGHT but kelly cant code");
                // merge starting from the rightmost end 
                // i.e. 2, 2, 2 ,0 -> 2, 0, 4, 0 -> (stage 3: 0, 0, 2, 4) 
-               System.out.println("RIGHTRIGHTRIGHTRIGHT i should be MERGING this row to the RIGHT but kelly cant code");
          }
          
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
@@ -207,9 +207,9 @@ public class Game2048 {
       }
 
       // stage 3: redo right-to-left shift
-      for (int i = 3; i >= 0; i--) {
+      for (int i = ROW_4; i >= ROW_1; i--) {
          if (result[i] != EMPTY_BOX) {
-            for (int j = i; j < 3; j++) {
+            for (int j = i; j < ROW_4; j++) {
                if (result[j + 1] == EMPTY_BOX) {
                   int temp = result[j];
                   result[j] = result[j + 1];

@@ -49,7 +49,7 @@ public class Game2048Listener implements KeyListener {
      
       game.move(direction); 
       System.out.println(direction);
-      System.out.println("sigma");
+      System.out.println("sasjhdfhgk");
    
    }
 
