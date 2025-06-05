@@ -35,6 +35,17 @@ public class Game2048 {
 
    // Global Constant Declaration
    public static final int EMPTY_BOX = -1;
+   public static final int ROW_1 = 0;
+   public static final int ROW_2 = 1;
+   public static final int ROW_3 = 2;
+   public static final int ROW_4 = 3;
+   public static final int ROW_LENGTH = 4;
+   
+   public static final int COL_1 = 0;
+   public static final int COL_2 = 1;
+   public static final int COL_3 = 2;
+   public static final int COL_4 = 3;
+   public static final int COL_LENGTH = 4;
    // public static final String SAVE_FILE = "ExampleSave.txt";
    // public static final String ICON_FILE_FOLDER =
    // "C:/Users/Kelly/Desktop/ICS3U-2048Game";
@@ -95,16 +106,16 @@ public class Game2048 {
    }
 
    public int[] shiftRowleft(int[] row) {
-      int[] result = new int[4];
+      int[] result = new int[ROW_LENGTH];
 
       // everything "4"here means the row length. its always 4 long
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < ROW_LENGTH; i++) {
          result[i] = row[i];
       }
 
       // stage1: left-to-right shift all elementsto the left
       // i.e. 0,2,0,2 -> 2,2,0,0
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < ROW_LENGTH; i++) {
          if (result[i] != EMPTY_BOX) {
             for (int j = i; j > 0; j--) { // was j > -1
                if (result[j - 1] == EMPTY_BOX) {
@@ -118,7 +129,17 @@ public class Game2048 {
 
       // stage 2: combine elements
       // i.e. 2,2,0,0 -> 4,0,0,0
-      for (int i = 3; i > 0; i--) {
+      for (int i = ROW_4; i > 0; i--) {
+         
+         // case: 3 consecutive elements are the same
+         
+         if(i >= 2 && result[i] == result[i - 1] && result[i] == result[i - 2] && result[i] != EMPTY_BOX){
+            // since this is already in shift row left,
+               // merge starting from the leftmost end
+               // i.e. 2, 2, 2 ,0 -> 4, 0, 2, 0 -> (stage 3: 4, 2, 0, 0)
+               System.out.println("LEFTLEFTLEFT i should be MERGING this row to the LEFT but kelly cant code");
+         }
+               
          // case: elements are the same
          if (result[i] == result[i - 1] && result[i] != EMPTY_BOX) {
             // set element to 0, set previous element to double
@@ -130,9 +151,10 @@ public class Game2048 {
          }
       }
 
-      // stage 3:redo left-to-right-shift
+      // stage 3: continuing left-to-right-shift after merge of elements in the direction of key pressed
       // i.e. 4,0,4,0 -> 4,4,0,0
-      for (int i = 0; i < 4; i++) {
+      //for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < ROW_4; i++){
          if (result[i] != EMPTY_BOX) {
             for (int j = i; j > 0; j--) { // was j > -1
                if (result[j - 1] == EMPTY_BOX) {
@@ -169,7 +191,15 @@ public class Game2048 {
       }
 
       // stage 2: combine elements (e.g. 0,0,2,2 -> 0,0,0,4)
-      for (int i = 0; i < 3; i++) {
+      for (int i = ROW_1; i < ROW_4; i++) {
+         // case: 3 consecutive elements are the same 
+          if( (i + 2 < ROW_LENGTH) && result[i] == result[i + 1] && result[i] == result[i + 2] && result[i] != EMPTY_BOX){
+            // since this is already in shift row right,               
+               // merge starting from the rightmost end 
+               // i.e. 2, 2, 2 ,0 -> 2, 0, 4, 0 -> (stage 3: 0, 0, 2, 4) 
+               System.out.println("RIGHTRIGHTRIGHTRIGHT i should be MERGING this row to the RIGHT but kelly cant code");
+         }
+         
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
             result[i + 1] = EMPTY_BOX;
             result[i] *= 2;
