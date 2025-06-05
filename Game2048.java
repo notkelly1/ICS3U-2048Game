@@ -129,25 +129,31 @@ public class Game2048 {
 
       // stage 2: combine elements
       // i.e. 2,2,0,0 -> 4,0,0,0
-      for (int i = ROW_4; i > 0; i--) {
+      // for (int i = ROW_4; i > 0; i--) {
          
-         // case: 3 consecutive elements are the same
+      //    // case: 3 consecutive elements are the same
          
-         if(i >= 2 && result[i] == result[i - 1] && result[i] == result[i - 2] && result[i] != EMPTY_BOX){
-            // since this is already in shift row left,
-               // merge starting from the leftmost end
-               // i.e. 2, 2, 2 ,0 -> 4, 0, 2, 0 -> (stage 3: 4, 2, 0, 0)
-               System.out.println("LEFTLEFTLEFT i should be MERGING this row to the LEFT but kelly cant code");
-         }
+      //    if(i >= 2 && result[i] == result[i - 1] && result[i] == result[i - 2] && result[i] != EMPTY_BOX){
+      //       // since this is already in shift row left,
+      //          // merge starting from the leftmost end
+      //          // i.e. 2, 2, 2 ,0 -> 4, 0, 2, 0 -> (stage 3: 4, 2, 0, 0)
+      //          System.out.println("LEFTLEFTLEFT i should be MERGING this row to the LEFT but kelly cant code");
+      //    }
                
-         // case: elements are the same
-         if (result[i] == result[i - 1] && result[i] != EMPTY_BOX) {
-            // set element to 0, set previous element to double
-            // i.e. ..,2,2,... -> ...,4,0,...
-            // result[i] = EMPTY_BOX;
-            // result[i - 1] *= 2; 
+      //    // case: elements are the same
+      //    if (result[i] == result[i - 1] && result[i] != EMPTY_BOX) {
+      //       // set element to 0, set previous element to double
+      //       // i.e. ..,2,2,... -> ...,4,0,...
+      //       // result[i] = EMPTY_BOX;
+      //       // result[i - 1] *= 2; 
+      //       result[i] *= 2;
+      //       result[i - 1] = EMPTY_BOX;
+      //    }
+      // }
+      for (int i = 0; i < ROW_4 - 1; i++) {
+         if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
             result[i] *= 2;
-            result[i - 1] = EMPTY_BOX;
+            result[i + 1] = EMPTY_BOX;
          }
       }
 
@@ -191,15 +197,21 @@ public class Game2048 {
       }
 
       // stage 2: combine elements (e.g. 0,0,2,2 -> 0,0,0,4)
-      for (int i = ROW_1; i < ROW_4; i++) {
-         // case: 3 consecutive elements are the same 
-          if( (i + 2 < ROW_LENGTH) && result[i] == result[i + 1] && result[i] == result[i + 2] && result[i] != EMPTY_BOX){
-            // since this is already in shift row right,               
-               System.out.println("RIGHTRIGHTRIGHTRIGHT i should be MERGING this row to the RIGHT but kelly cant code");
-               // merge starting from the rightmost end 
-               // i.e. 2, 2, 2 ,0 -> 2, 0, 4, 0 -> (stage 3: 0, 0, 2, 4) 
-         }
+      // for (int i = ROW_1; i < ROW_4; i++) {
+      //    // case: 3 consecutive elements are the same 
+      //     if( (i + 2 < ROW_LENGTH) && result[i] == result[i + 1] && result[i] == result[i + 2] && result[i] != EMPTY_BOX){
+      //       // since this is already in shift row right,               
+      //          System.out.println("RIGHTRIGHTRIGHTRIGHT i should be MERGING this row to the RIGHT but kelly cant code");
+      //          // merge starting from the rightmost end 
+      //          // i.e. 2, 2, 2 ,0 -> 2, 0, 4, 0 -> (stage 3: 0, 0, 2, 4) 
+      //    }
          
+      //    if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
+      //       result[i + 1] = EMPTY_BOX;
+      //       result[i] *= 2;
+      //    }
+      // }
+      for (int i = ROW_4 - 1; i > -1; i--) {
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
             result[i + 1] = EMPTY_BOX;
             result[i] *= 2;
