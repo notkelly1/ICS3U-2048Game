@@ -50,9 +50,12 @@ public class Game2048 {
    // public static final String SAVE_FILE = "ExampleSave.txt";
    // public static final String ICON_FILE_FOLDER =
    // "C:/Users/Kelly/Desktop/ICS3U-2048Game";
+   
+   public static final String SAVE_FILE = "balls.txt";
 
    // Global Variable Declaration
    private static int grid[][] = new int[NUM_ROW][NUM_COLUMN];
+   private static int userScore = 0;
 
    /**
     * Constructs Game2048 object.
@@ -155,6 +158,7 @@ public class Game2048 {
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
             result[i] *= 2;
             result[i + 1] = EMPTY_BOX;
+            userScore += result[i];
          }
       }
 
@@ -227,6 +231,7 @@ public class Game2048 {
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
             result[i + 1] = EMPTY_BOX;
             result[i] *= 2;
+            userScore += result[i];
          }
       }
 
@@ -346,6 +351,8 @@ public class Game2048 {
    }// end of newGame method
 
    public void move(int direction) {
+      System.out.println("valid move is: " + validMove());
+      System.out.println("MOVING " + direction);
       if (!validMove()) {
          System.out.println("No valid moves available!!!! !!!!!!!!!!!!!!!!!!!!");
          return;
@@ -394,14 +401,30 @@ public class Game2048 {
       setRandomSquares(); // add a new random square after each move
       // connect grid to frontend using api
       gui.displayGrid(grid);
+      gui.setScore(userScore);
    }// end of move method
 
    public boolean saveToFile(String fileName) {
-      // Variable declaration
-      boolean save = false;
-
-      // return
-      return save;
+      // Variable // declaration
+//       boolean save = false;
+//       
+//       // return
+//       return save;
+      try {
+         BufferedWriter br = new BufferedWriter(new FileWriter(SAVE_FILE));
+         for (int i = 0; i < ROW_LENGTH; i++) {
+            for (int j = 0; j < COL_LENGTH; j++) {
+                br.write(String.valueOf(grid[i][j]));
+            }
+            br.write("\n");
+         }
+         
+         //WRITE SCORE HERE AJDKLFJADLKFJSLKDJFLKASJFDLKJSALKFJLKSADJFLKAJFLKSAJLKFJDAKFJSALKJFLKSAJFLKJDLKAFJLKSAFJLKJSLKFJSDA
+         br.write(userScore);
+         return true;
+      } catch (IOException e) {
+          return false;
+      }
    }// end of save method
 
    public boolean loadFromFile(String fileName) {
