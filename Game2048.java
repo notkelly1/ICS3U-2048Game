@@ -161,7 +161,18 @@ public class Game2048 {
       // stage 3: continuing left-to-right-shift after merge of elements in the direction of key pressed
       // i.e. 4,0,4,0 -> 4,4,0,0
       //for (int i = 0; i < 4; i++) {
-      for (int i = 0; i < ROW_4; i++){
+      // for (int i = 0; i < ROW_4; i++){
+      //    if (result[i] != EMPTY_BOX) {
+      //       for (int j = i; j > 0; j--) { // was j > -1
+      //          if (result[j - 1] == EMPTY_BOX) {
+      //             int temp = result[j];
+      //             result[j] = result[j - 1];
+      //             result[j - 1] = temp;
+      //          }
+      //       }
+      //    }
+      // }
+      for (int i = 0; i < ROW_LENGTH; i++) {
          if (result[i] != EMPTY_BOX) {
             for (int j = i; j > 0; j--) { // was j > -1
                if (result[j - 1] == EMPTY_BOX) {
@@ -220,9 +231,20 @@ public class Game2048 {
       }
 
       // stage 3: redo right-to-left shift
+      // for (int i = ROW_4; i >= ROW_1; i--) {
+      //    if (result[i] != EMPTY_BOX) {
+      //       for (int j = i; j < ROW_4; j++) {
+      //          if (result[j + 1] == EMPTY_BOX) {
+      //             int temp = result[j];
+      //             result[j] = result[j + 1];
+      //             result[j + 1] = temp;
+      //          }
+      //       }
+      //    }
+      // }
       for (int i = ROW_4; i >= ROW_1; i--) {
          if (result[i] != EMPTY_BOX) {
-            for (int j = i; j < ROW_4; j++) {
+            for (int j = i; j < 3; j++) {
                if (result[j + 1] == EMPTY_BOX) {
                   int temp = result[j];
                   result[j] = result[j + 1];
