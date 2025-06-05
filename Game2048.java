@@ -8,6 +8,7 @@
 
 import java.lang.Math;
 import java.io.*;
+import java.util.*;
 
 public class Game2048 {
    // =========================================================================
@@ -234,6 +235,70 @@ public class Game2048 {
       return result;
    }
 
+   public boolean validMove() {
+      // Make a copy of the current grid
+      int[][] original = new int[NUM_ROW][NUM_COLUMN];
+      for (int i = 0; i < NUM_ROW; i++) {
+         for (int j = 0; j < NUM_COLUMN; j++) {
+               original[i][j] = grid[i][j];
+         }
+      }
+
+      // Try all four directions
+      boolean canMove = false;
+      int[][] testGrid = new int[NUM_ROW][NUM_COLUMN];
+
+      // LEFT
+      for (int i = 0; i < NUM_ROW; i++) {
+         // arraycopy copies the original row to the testGrid row
+         System.arraycopy(original[i], 0, testGrid[i], 0, NUM_COLUMN);
+         int[] shifted = shiftRowleft(testGrid[i]);
+         if (!Arrays.equals(shifted, original[i])) {
+               return true;
+         }
+      }
+
+      // RIGHT
+      for (int i = 0; i < NUM_ROW; i++) {
+         System.arraycopy(original[i], 0, testGrid[i], 0, NUM_COLUMN);
+         int[] shifted = shiftRowRight(testGrid[i]);
+         if (!Arrays.equals(shifted, original[i])) {
+               return true;
+         }
+      }
+
+      // UP
+      for (int col = 0; col < NUM_COLUMN; col++) {
+         int[] column = new int[NUM_ROW];
+         for (int row = 0; row < NUM_ROW; row++) {
+               column[row] = original[row][col];
+         }
+         int[] shifted = shiftRowleft(column);
+         for (int row = 0; row < NUM_ROW; row++) {
+               if (shifted[row] != original[row][col]) {
+                  return true;
+               }
+         }
+      }
+
+      // DOWN
+      for (int col = 0; col < NUM_COLUMN; col++) {
+         int[] column = new int[NUM_ROW];
+         for (int row = 0; row < NUM_ROW; row++) {
+               column[row] = original[row][col];
+         }
+         int[] shifted = shiftRowRight(column);
+         for (int row = 0; row < NUM_ROW; row++) {
+               if (shifted[row] != original[row][col]) {
+                  return true;
+               }
+         }
+      }
+
+      // No valid moves found
+      return false;
+   }
+
    public void newGame() {
       // Variable Declaration
 
@@ -259,6 +324,10 @@ public class Game2048 {
    }// end of newGame method
 
    public void move(int direction) {
+      if (!validMove()) {
+         System.out.println("No valid moves available!!!! !!!!!!!!!!!!!!!!!!!!");
+         return;
+      }
       System.out.println("move method called with direction: " + direction);
       if (direction == LEFT) {
          System.out.println("Moving left");
