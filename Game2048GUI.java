@@ -541,6 +541,7 @@ public class Game2048GUI {
       
       // start the game logic
       game.newGame();
+      game.newGame();
       System.out.println("7");
    }
 }
