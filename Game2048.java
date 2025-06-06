@@ -310,7 +310,9 @@ public class Game2048 {
    Return type: boolean
    Return Description: Returns if a move can be made (true) or if a move can't be made (false)
    Parameters: none
-   Description: makes a copy of the current game grid and try ....
+   Description: makes a copy of the current game grid and try merging in all directions. 
+   If a merge can be made (the shifted array is different from the original), return TRUE. 
+   Once all directions are exhausted, and all shifted arrays are the same as the original, return FALSE.
    */
    public boolean validMove() {
       // Variable Declaration
@@ -377,6 +379,12 @@ public class Game2048 {
       return false;
    }// end of validMoves method
 
+   /*  
+   Method name: "newGame"
+   Return type: void 
+   Parameters: none
+   Description: calls initialize grid method, sets score to 0, calls random squares method twice, connects grid and score to frontend using gui API
+   */
    public void newGame() {
       // Variable Declaration
 
@@ -389,7 +397,7 @@ public class Game2048 {
       setRandomSquares();
       setRandomSquares();
       // testGrid();
-      System.out.println("balls3");
+      System.out.println("sigma3");
       // connect grid to frontend using api
       for (int[] i : grid) {
          for (int j : i) {
@@ -399,18 +407,48 @@ public class Game2048 {
          System.out.print("\n");
       }
       gui.displayGrid(grid);
-      System.out.println("balls4");
+      System.out.println("sigma4");
 
    }// end of newGame method
-
+   
+   /*  
+   Method name: "move"
+   Return type: void
+   Parameters: int direction
+   Parameter Description: direction based on the global constant (e.g. left is 0.)
+   Description: First, check if win/lose condition is reached. 
+   If none of them are reached, check direction. 
+   Once direction is determined, shift and merge rows/columns by calling the respective method and looping.
+   */
    public void move(int direction) {
+      // debug code
       System.out.println("valid move is: " + validMove());
       System.out.println("MOVING " + direction);
+      
+      // check if moves are possible. if not, end game in a lose & allow for restart/exit
       if (!validMove()) {
          System.out.println("No valid moves available!!!! !!!!!!!!!!!!!!!!!!!!");
-         gui.showGameOver()
+         gui.showGameOver();
+         if(gui.showPlayAgain()) {
+            newGame();
+         }
          return;
       }
+      
+      // check if 2048 is reached. if yes, end game in win & allow for restart/exit
+      for(int i = 0; i < ROW_LENGTH; i ++){
+         for(int j = 0; j < COL_LENGTH; j++ ){
+            if(grid[i][j] == 2048){
+               gui.showGameWon();
+               if(gui.showPlayAgain()) {
+                  newGame();
+               } 
+       
+               return;
+            } 
+         }
+      }
+      
       System.out.println("move method called with direction: " + direction);
       // depending on the direction of the arrow key, call its corresponding method 
       if (direction == LEFT) {
@@ -458,7 +496,8 @@ public class Game2048 {
       gui.displayGrid(grid);
       // connect score to frontend using api
       gui.setScore(userScore);
-
+      
+      // test print array
       for (int[] i : grid) {
          for (int j : i) {
             System.out.print(j);
@@ -469,29 +508,50 @@ public class Game2048 {
       System.out.println("akdkdlakdj");
    }// end of move method
 
+   /*  
+   Method name: "saveToFile"
+   Return type: boolean
+   Return Description: if the write is successful, return true. if the write is unsuccessful (IOException), return false.
+   Parameters: String fileName
+   Parameter Description: name of the file you want to write to (prompted in the GUI)
+   Description: saves game board to file, in the form of ExampleSave.txt, where -1 represents an empty box, and the last line represents the score.
+   */
    public boolean saveToFile(String fileName) {
       // Variable // declaration
 //       boolean save = false;
 //       
 //       // return
 //       return save;
+      System.out.println("WRITING TO FILE FORLLOWING: ");
       try {
-         BufferedWriter br = new BufferedWriter(new FileWriter(SAVE_FILE));
+         BufferedWriter br = new BufferedWriter(new FileWriter(fileName));
          for (int i = 0; i < ROW_LENGTH; i++) {
             for (int j = 0; j < COL_LENGTH; j++) {
-                br.write(String.valueOf(grid[i][j]));
+                br.write(String.valueOf(grid[i][j]) + " ");
+                System.out.print(String.valueOf(grid[i][j]) + " ");
             }
-            br.write("\n");
+            br.newLine();
+            System.out.print("\n");
          }
          
          //WRITE SCORE HERE AJDKLFJADLKFJSLKDJFLKASJFDLKJSALKFJLKSADJFLKAJFLKSAJLKFJDAKFJSALKJFLKSAJFLKJDLKAFJLKSAFJLKJSLKFJSDA
-         br.write(userScore);
+         br.write(String.valueOf(userScore));
+         System.out.print(userScore);
+         br.close();
          return true;
       } catch (IOException e) {
           return false;
       }
    }// end of save method
 
+   /*  
+   Method name: "loadFromFile"
+   Return type: boolean
+   Return Description: if the load is successful, return true. if the load is unsuccessful (IOException), return false.
+   Parameters: String fileName
+   Parameter Description: name of the file you want to load from (prompted in the GUI)
+   Description: writes game board to grid array, and writes the last line to the score.
+   */
    public boolean loadFromFile(String fileName) {
       // Variable declaration
       boolean load = false;
@@ -513,15 +573,17 @@ public class Game2048 {
                grid[i][j] = fs.nextInt();
                System.out.print(""+ grid[i][j] + " ");
             }
-            //System.out.println();
+            System.out.println();
          }
          // scan last integer (should be the score)
          userScore = fs.nextInt();
          gui.setScore(userScore);
          System.out.println("THE STUPID ASHDAJSGDHJFFGD SCORE IS " + userScore);
          in.close();
+         load = true;
       }
       catch(IOException e){
+         load = false;
       }
       
       // since newGame doesn't run, display grid after assigning values to it
