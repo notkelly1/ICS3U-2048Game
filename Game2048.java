@@ -314,6 +314,7 @@ public class Game2048 {
    */
    public boolean validMove() {
       // Variable Declaration
+      int[][] testGrid = new int[NUM_ROW][NUM_COLUMN];
       
       // Make a copy of the current grid
       int[][] original = new int[NUM_ROW][NUM_COLUMN];
@@ -324,8 +325,6 @@ public class Game2048 {
       }
 
       // Try all four directions
-      boolean canMove = false;
-      int[][] testGrid = new int[NUM_ROW][NUM_COLUMN];
 
       // LEFT
       for (int i = 0; i < NUM_ROW; i++) {
