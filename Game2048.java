@@ -51,7 +51,7 @@ public class Game2048 {
    // public static final String ICON_FILE_FOLDER =
    // "C:/Users/Kelly/Desktop/ICS3U-2048Game";
    
-   public static final String SAVE_FILE = "balls.txt";
+   public static final String SAVE_FILE = "ExampleSave.txt";
 
    // Global Variable Declaration
    private static int grid[][] = new int[NUM_ROW][NUM_COLUMN];
@@ -112,7 +112,7 @@ public class Game2048 {
    public int[] shiftRowleft(int[] row) {
       int[] result = new int[ROW_LENGTH];
 
-      // everything "4"here means the row length. its always 4 long
+      // row length is 4
       for (int i = 0; i < ROW_LENGTH; i++) {
          result[i] = row[i];
       }
@@ -324,14 +324,16 @@ public class Game2048 {
 
       // No valid moves found
       return false;
-   }
+   }// end of validMoves method
 
    public void newGame() {
       // Variable Declaration
 
       // initialize grid
       initializeGrid();
-
+      // set score to 0
+      userScore = 0;
+      gui.setScore(userScore);
       // Set the Random Squares
       setRandomSquares();
       setRandomSquares();
@@ -358,9 +360,10 @@ public class Game2048 {
          return;
       }
       System.out.println("move method called with direction: " + direction);
+      // depending on the direction of the arrow key, call its corresponding method 
       if (direction == LEFT) {
          System.out.println("Moving left");
-         // shift all rows to the left
+         // shift all rows to the left (loop row shift method for each row)
          for (int i = 0; i < NUM_ROW; i++) {
             grid[i] = shiftRowleft(grid[i]);
          }
@@ -372,7 +375,7 @@ public class Game2048 {
          }
       } else if (direction == UP) {
          System.out.println("Moving up");
-         // shift all columns up
+         // shift all columns up (loop column shift method for each column)
          for (int i = 0; i < NUM_COLUMN; i++) {
             int[] column = new int[NUM_ROW];
             for (int j = 0; j < NUM_ROW; j++) {
@@ -401,6 +404,7 @@ public class Game2048 {
       setRandomSquares(); // add a new random square after each move
       // connect grid to frontend using api
       gui.displayGrid(grid);
+      // connect score to frontend using api
       gui.setScore(userScore);
    }// end of move method
 
@@ -430,12 +434,39 @@ public class Game2048 {
    public boolean loadFromFile(String fileName) {
       // Variable declaration
       boolean load = false;
-
+      
+      // read file using scanner class
+      // Try catch
+      try
+      {
+         BufferedReader in = new BufferedReader(new FileReader(fileName));
+         // initialize array?????????????????????? (assuming newGame doesn't run)
+         initializeGrid();
+         
+         // Initilaize scanner to read file input and save to grid array
+         Scanner fs = new Scanner(new File(fileName));
+         for(int i = 0; i < ROW_LENGTH; i++)
+         {
+            for(int j = 0; j < COL_LENGTH; j++)
+            {
+               grid[i][j] = fs.nextInt();
+               System.out.print(""+ grid[i][j] + " ");
+            }
+            //System.out.println();
+         }
+         // scan last integer (should be the score)
+         userScore = fs.nextInt();
+         gui.setScore(userScore);
+         System.out.println("THE STUPID ASHDAJSGDHJFFGD SCORE IS " + userScore);
+         in.close();
+      }
+      catch(IOException e){
+      }
+      
+      // assuming newGame doesn't run, display grid after assigning values to it
+      gui.displayGrid(grid);
+      
       // return
       return load;
    }// end of load method
-
-   public void addRandomTile() {
-
-   }
 }// end of class
