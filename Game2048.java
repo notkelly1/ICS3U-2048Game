@@ -457,6 +457,15 @@ public class Game2048 {
       gui.displayGrid(grid);
       // connect score to frontend using api
       gui.setScore(userScore);
+
+      for (int[] i : grid) {
+         for (int j : i) {
+            System.out.print(j);
+            System.out.print(" ");
+         }
+         System.out.print("\n");
+      }
+      System.out.println("akdkdlakdj");
    }// end of move method
 
    public boolean saveToFile(String fileName) {
