@@ -68,7 +68,12 @@ public class Game2048 {
    }
 
    // Method Declaration (all methods are public non static)
-
+   /*  
+   Method name: "initializeGrid"
+   Return type: void 
+   Parameters: none
+   Description: initialize playing grid array with empty box (-1) value
+   */
    public void initializeGrid() {
 
       // for loop to initialize grid with empty box
@@ -79,8 +84,15 @@ public class Game2048 {
       }
    }
 
+   /*  
+   Method name: "testGrid"
+   Return type: void 
+   Parameters: none
+   Description: Initializes the grid with a value, for debugging purposes only.
+   */
    public void testGrid() {
-      // for loop to initialize grid with empty box
+      
+      // for loop to initialize grid with 1024
       for (int i = 0; i < NUM_ROW; i++) {
          for (int j = 0; j < NUM_COLUMN; j++) {
             grid[i][j] = 1024;
@@ -88,7 +100,14 @@ public class Game2048 {
       }
    }
 
+   /*  
+   Method name: "setRandomSquares"
+   Return type: void 
+   Parameters: none
+   Description: chooses an empty cell (random row, random column) and spawns either a 4 tile (0.1 chance) or a 2 (0.9 chance) in that cell.
+   */
    public void setRandomSquares() {
+      // Variable Declaration
       int randRow, randCol, numberToAdd;
 
       // pick a random empty cell
@@ -110,7 +129,19 @@ public class Game2048 {
       grid[randRow][randCol] = numberToAdd;
    }
 
+   /*  
+   Method name: "shiftRowleft"
+   Return type: int[]
+   Return Description: Returns the given row as an array after the shift is completed.
+   Parameters: int[] row
+   Parameter Description: Grabs a specified row as an array from the grid.
+   Description: Merges elements in a specified row using a 3 step process: 
+   1) pushes all the elements in the specified direction to eliminate gaps,
+   2) determine if merges are possible and if so, merge the elements starting from the leftmost element,
+   3) pushes all the elements again to eliminate gaps after merging
+   */
    public int[] shiftRowleft(int[] row) {
+      // Variable Declaration
       int[] result = new int[ROW_LENGTH];
 
       // row length is 4
@@ -191,11 +222,22 @@ public class Game2048 {
 
       return result;
    }
-
+   /*  
+   Method name: "shiftRowRight"
+   Return type: int[]
+   Return Description: Returns the given row as an array after the shift is completed.
+   Parameters: int[] row
+   Parameter Description: Grabs a specified row as an array from the grid.
+   Description: Merges elements in a specified row using a 3 step process: 
+   1) pushes all the elements in the specified direction to eliminate gaps,
+   2) determine if merges are possible and if so, merge the elements starting from the rightmost element,
+   3) pushes all the elements in the specified direction again to eliminate gaps after merging
+   */
    public int[] shiftRowRight(int[] row) {
-      int[] result = new int[4];
+      // Variable Declaration
+      int[] result = new int[ROW_LENGTH];
 
-      // copy input
+      // copy input parameter
       for (int i = 0; i < ROW_LENGTH; i++) {
          result[i] = row[i];
       }
@@ -263,7 +305,16 @@ public class Game2048 {
       return result;
    }
 
+   /*  
+   Method name: "validMove"
+   Return type: boolean
+   Return Description: Returns if a move can be made (true) or if a move can't be made (false)
+   Parameters: none
+   Description: makes a copy of the current game grid and try ....
+   */
    public boolean validMove() {
+      // Variable Declaration
+      
       // Make a copy of the current grid
       int[][] original = new int[NUM_ROW][NUM_COLUMN];
       for (int i = 0; i < NUM_ROW; i++) {
