@@ -47,11 +47,12 @@ public class Game2048 {
    public static final int COL_3 = 2;
    public static final int COL_4 = 3;
    public static final int COL_LENGTH = 4;
-   // public static final String SAVE_FILE = "ExampleSave.txt";
-   // public static final String ICON_FILE_FOLDER =
-   // "C:/Users/Kelly/Desktop/ICS3U-2048Game";
+   
    
    public static final String SAVE_FILE = "ExampleSave.txt";
+   // public static final String ICON_FILE_FOLDER =
+   // "C:/Users/Kelly/Desktop/ICS3U-2048Game";
+
 
    // Global Variable Declaration
    private static int grid[][] = new int[NUM_ROW][NUM_COLUMN];
@@ -440,7 +441,7 @@ public class Game2048 {
       try
       {
          BufferedReader in = new BufferedReader(new FileReader(fileName));
-         // initialize array?????????????????????? (assuming newGame doesn't run)
+         // initialize array?????????????????????? (since newGame doesn't run)
          initializeGrid();
          
          // Initilaize scanner to read file input and save to grid array
@@ -463,7 +464,7 @@ public class Game2048 {
       catch(IOException e){
       }
       
-      // assuming newGame doesn't run, display grid after assigning values to it
+      // since newGame doesn't run, display grid after assigning values to it
       gui.displayGrid(grid);
       
       // return
