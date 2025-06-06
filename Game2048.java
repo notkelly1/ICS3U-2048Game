@@ -408,6 +408,7 @@ public class Game2048 {
       System.out.println("MOVING " + direction);
       if (!validMove()) {
          System.out.println("No valid moves available!!!! !!!!!!!!!!!!!!!!!!!!");
+         gui.showGameOver()
          return;
       }
       System.out.println("move method called with direction: " + direction);
