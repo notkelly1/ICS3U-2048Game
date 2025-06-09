@@ -42,8 +42,8 @@ public class Game2048 {
    public static final int ROW_4 = 3;
    public static final int ROW_LENGTH = 4;
    
-   public static final int COL_1 = 0;
-   public static final int COL_2 = 1;
+   //public static final int COL_1 = 0;
+   //public static final int COL_2 = 1;
    public static final int COL_3 = 2;
    public static final int COL_4 = 3;
    public static final int COL_LENGTH = 4;
@@ -421,6 +421,15 @@ public class Game2048 {
    Once direction is determined, shift and merge rows/columns by calling the respective method and looping.
    */
    public void move(int direction) {
+      // variable declaration       
+      int[][] copiedArray =  new int[NUM_ROW][NUM_COLUMN];
+      // copy array
+      for(int i = 0; i < ROW_LENGTH; i++){
+         for(int j = 0; j < COL_LENGTH; j++){
+            copiedArray[i][j] = grid[i][j];
+         }
+      }
+      
       // debug code
       System.out.println("valid move is: " + validMove());
       System.out.println("MOVING " + direction);
@@ -490,8 +499,14 @@ public class Game2048 {
             }
          }
       }
-
-      setRandomSquares(); // add a new random square after each move
+      
+      // check if the move actually changed anything      
+      if(copiedArray != grid){
+         setRandomSquares(); // add a new random square after each valid move
+      }
+      else{
+         System.out.println("UR MOVE DIDNT MERGE OR CHANGE ANYTHING RAHHHHHHHHHHHHHHHHR");
+      }
       // connect grid to frontend using api
       gui.displayGrid(grid);
       // connect score to frontend using api
