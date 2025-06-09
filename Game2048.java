@@ -422,6 +422,7 @@ public class Game2048 {
    */
    public void move(int direction) {
       // variable declaration       
+      boolean changeMade = true;
       int[][] copiedArray =  new int[NUM_ROW][NUM_COLUMN];
       // copy array
       for(int i = 0; i < ROW_LENGTH; i++){
@@ -500,8 +501,17 @@ public class Game2048 {
          }
       }
       
+      // set change made to true if a change was made
+      for(int i = 0; i < ROW_LENGTH; i++){
+         for(int j = 0; j < COL_LENGTH && changeMade != true; j++){
+            if(copiedArray[i][j] != grid[i][j]);
+            {
+               changeMade = false;
+            }
+         }
+      }
       // check if the move actually changed anything      
-      if(copiedArray != grid){
+      if(changeMade){
          setRandomSquares(); // add a new random square after each valid move
       }
       else{
