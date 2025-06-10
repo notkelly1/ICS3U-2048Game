@@ -422,7 +422,7 @@ public class Game2048 {
    */
    public void move(int direction) {
       // variable declaration       
-      boolean changeMade = true;
+      boolean changeMade = false;
       int[][] copiedArray =  new int[NUM_ROW][NUM_COLUMN];
       // copy array
       for(int i = 0; i < ROW_LENGTH; i++){
