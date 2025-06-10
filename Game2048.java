@@ -166,29 +166,6 @@ public class Game2048 {
 
       // stage 2: combine elements
       // i.e. 2,2,0,0 -> 4,0,0,0
-      // for (int i = ROW_4; i > 0; i--) {
-
-      // // case: 3 consecutive elements are the same
-
-      // if(i >= 2 && result[i] == result[i - 1] && result[i] == result[i - 2] &&
-      // result[i] != EMPTY_BOX){
-      // // since this is already in shift row left,
-      // // merge starting from the leftmost end
-      // // i.e. 2, 2, 2 ,0 -> 4, 0, 2, 0 -> (stage 3: 4, 2, 0, 0)
-      // System.out.println("LEFTLEFTLEFT i should be MERGING this row to the LEFT but
-      // kelly cant code");
-      // }
-
-      // // case: elements are the same
-      // if (result[i] == result[i - 1] && result[i] != EMPTY_BOX) {
-      // // set element to 0, set previous element to double
-      // // i.e. ..,2,2,... -> ...,4,0,...
-      // // result[i] = EMPTY_BOX;
-      // // result[i - 1] *= 2;
-      // result[i] *= 2;
-      // result[i - 1] = EMPTY_BOX;
-      // }
-      // }
       for (int i = 0; i < ROW_4 - 1; i++) {
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
             result[i] *= 2;
@@ -198,20 +175,6 @@ public class Game2048 {
       }
 
       // stage 3: continuing left-to-right-shift after merge of elements in the
-      // direction of key pressed
-      // i.e. 4,0,4,0 -> 4,4,0,0
-      // for (int i = 0; i < 4; i++) {
-      // for (int i = 0; i < ROW_4; i++){
-      // if (result[i] != EMPTY_BOX) {
-      // for (int j = i; j > 0; j--) { // was j > -1
-      // if (result[j - 1] == EMPTY_BOX) {
-      // int temp = result[j];
-      // result[j] = result[j - 1];
-      // result[j - 1] = temp;
-      // }
-      // }
-      // }
-      // }
       for (int i = 0; i < ROW_LENGTH; i++) {
          if (result[i] != EMPTY_BOX) {
             for (int j = i; j > 0; j--) { // was j > -1
@@ -264,22 +227,6 @@ public class Game2048 {
       }
 
       // stage 2: combine elements (e.g. 0,0,2,2 -> 0,0,0,4)
-      // for (int i = ROW_1; i < ROW_4; i++) {
-      // // case: 3 consecutive elements are the same
-      // if( (i + 2 < ROW_LENGTH) && result[i] == result[i + 1] && result[i] ==
-      // result[i + 2] && result[i] != EMPTY_BOX){
-      // // since this is already in shift row right,
-      // System.out.println("RIGHTRIGHTRIGHTRIGHT i should be MERGING this row to the
-      // RIGHT but kelly cant code");
-      // // merge starting from the rightmost end
-      // // i.e. 2, 2, 2 ,0 -> 2, 0, 4, 0 -> (stage 3: 0, 0, 2, 4)
-      // }
-
-      // if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
-      // result[i + 1] = EMPTY_BOX;
-      // result[i] *= 2;
-      // }
-      // }
       for (int i = ROW_4 - 1; i > -1; i--) {
          if (result[i] == result[i + 1] && result[i] != EMPTY_BOX) {
             result[i + 1] = EMPTY_BOX;
@@ -289,17 +236,6 @@ public class Game2048 {
       }
 
       // stage 3: redo right-to-left shift
-      // for (int i = ROW_4; i >= ROW_1; i--) {
-      // if (result[i] != EMPTY_BOX) {
-      // for (int j = i; j < ROW_4; j++) {
-      // if (result[j + 1] == EMPTY_BOX) {
-      // int temp = result[j];
-      // result[j] = result[j + 1];
-      // result[j + 1] = temp;
-      // }
-      // }
-      // }
-      // }
       for (int i = ROW_4; i >= ROW_1; i--) {
          if (result[i] != EMPTY_BOX) {
             for (int j = i; j < 3; j++) {
@@ -415,17 +351,17 @@ public class Game2048 {
       setRandomSquares();
       setRandomSquares();
       // testGrid();
-      System.out.println("sigma3");
+      // System.out.println("sigma3");
       // connect grid to frontend using api
-      for (int[] i : grid) {
-         for (int j : i) {
-            System.out.print(j);
-            System.out.print(" ");
-         }
-         System.out.print("\n");
-      }
+      // for (int[] i : grid) {
+      // for (int j : i) {
+      // System.out.print(j);
+      // System.out.print(" ");
+      // }
+      // System.out.print("\n");
+      // }
       gui.displayGrid(grid);
-      System.out.println("sigma4");
+      // System.out.println("sigma4");
 
    }// end of newGame method
 
@@ -452,13 +388,13 @@ public class Game2048 {
       }
 
       // debug code
-      System.out.println("valid move is: " + validMove());
-      System.out.println("MOVING " + direction);
+      // System.out.println("valid move is: " + validMove());
+      // System.out.println("MOVING " + direction);
 
       // check if moves are possible. if not, end game in a lose & allow for
       // restart/exit
       if (!validMove()) {
-         System.out.println("No valid moves available!!!! !!!!!!!!!!!!!!!!!!!!");
+         // System.out.println("No valid moves available!!!! !!!!!!!!!!!!!!!!!!!!");
          gui.showGameOver();
          if (gui.showPlayAgain()) {
             newGame();
@@ -480,22 +416,22 @@ public class Game2048 {
          }
       }
 
-      System.out.println("move method called with direction: " + direction);
+      // System.out.println("move method called with direction: " + direction);
       // depending on the direction of the arrow key, call its corresponding method
       if (direction == LEFT) {
-         System.out.println("Moving left");
+         // System.out.println("Moving left");
          // shift all rows to the left (loop row shift method for each row)
          for (int i = 0; i < NUM_ROW; i++) {
             grid[i] = shiftRowleft(grid[i]);
          }
       } else if (direction == RIGHT) {
-         System.out.println("Moving right");
+         // System.out.println("Moving right");
          // shift all rows to the right
          for (int i = 0; i < NUM_ROW; i++) {
             grid[i] = shiftRowRight(grid[i]);
          }
       } else if (direction == UP) {
-         System.out.println("Moving up");
+         // System.out.println("Moving up");
          // shift all columns up (loop column shift method for each column)
          for (int i = 0; i < NUM_COLUMN; i++) {
             int[] column = new int[NUM_ROW];
@@ -508,7 +444,7 @@ public class Game2048 {
             }
          }
       } else if (direction == DOWN) {
-         System.out.println("Moving down");
+         // System.out.println("Moving down");
          // shift all columns down
          for (int i = 0; i < NUM_COLUMN; i++) {
             int[] column = new int[NUM_ROW];
@@ -534,7 +470,8 @@ public class Game2048 {
       if (changeMade) {
          setRandomSquares(); // add a new random square after each valid move
       } else {
-         System.out.println("UR MOVE DIDNT MERGE OR CHANGE ANYTHING RAHHHHHHHHHHHHHHHHR");
+         // System.out.println("UR MOVE DIDNT MERGE OR CHANGE ANYTHING
+         // RAHHHHHHHHHHHHHHHHR");
       }
       // connect grid to frontend using api
       gui.displayGrid(grid);
@@ -542,14 +479,14 @@ public class Game2048 {
       gui.setScore(userScore);
 
       // test print array
-      for (int[] i : grid) {
-         for (int j : i) {
-            System.out.print(j);
-            System.out.print(" ");
-         }
-         System.out.print("\n");
-      }
-      System.out.println("akdkdlakdj");
+      // for (int[] i : grid) {
+      // for (int j : i) {
+      // System.out.print(j);
+      // System.out.print(" ");
+      // }
+      // System.out.print("\n");
+      // }
+      // System.out.println("akdkdlakdj");
    }// end of move method
 
    /*
@@ -564,27 +501,21 @@ public class Game2048 {
     * -1 represents an empty box, and the last line represents the score.
     */
    public boolean saveToFile(String fileName) {
-      // Variable // declaration
-      // boolean save = false;
-      //
-      // // return
-      // return save;
-      System.out.println("WRITING TO FILE FORLLOWING: ");
+      // System.out.println("WRITING TO FILE FORLLOWING: ");
       try {
          BufferedWriter br = new BufferedWriter(new FileWriter(fileName));
          for (int i = 0; i < ROW_LENGTH; i++) {
             for (int j = 0; j < COL_LENGTH; j++) {
                br.write(String.valueOf(grid[i][j]) + " ");
-               System.out.print(String.valueOf(grid[i][j]) + " ");
+               // System.out.print(String.valueOf(grid[i][j]) + " ");
             }
             br.newLine();
-            System.out.print("\n");
+            // System.out.print("\n");
          }
 
          // WRITE SCORE HERE
-         // AJDKLFJADLKFJSLKDJFLKASJFDLKJSALKFJLKSADJFLKAJFLKSAJLKFJDAKFJSALKJFLKSAJFLKJDLKAFJLKSAFJLKJSLKFJSDA
          br.write(String.valueOf(userScore));
-         System.out.print(userScore);
+         // System.out.print(userScore);
          br.close();
          return true;
       } catch (IOException e) {
@@ -611,7 +542,7 @@ public class Game2048 {
       // Try catch
       try {
          BufferedReader in = new BufferedReader(new FileReader(fileName));
-         // initialize array?????????????????????? (since newGame doesn't run)
+         // initialize array
          initializeGrid();
 
          // Initilaize scanner to read file input and save to grid array
@@ -626,7 +557,7 @@ public class Game2048 {
          // scan last integer (should be the score)
          userScore = fs.nextInt();
          gui.setScore(userScore);
-         System.out.println("THE STUPID ASHDAJSGDHJFFGD SCORE IS " + userScore);
+         // System.out.println("THE ASHDAJSGDHJFFGD SCORE IS " + userScore);
          in.close();
          load = true;
       } catch (IOException e) {
